@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<champ-admin-console>
+	<applications>
+		<cargospots>
+			<cargospot>
+				<name></name>
+				<host-name></host-name>
+				<user-name></user-name>
+				<password></password>
+				<command-path></command-path>
+				<csp-path></csp-path>
+			</cargospot>
+		</cargospots>
+	</applications>
+</champ-admin-console>
