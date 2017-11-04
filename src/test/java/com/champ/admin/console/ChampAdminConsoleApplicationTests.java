@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.champ.admin.console.io.XmlConverter;
 import com.champ.admin.console.model.Application;
 import com.champ.admin.console.model.Cargospot;
-import com.champ.admin.console.model.ChampAdminConsole;
+import com.champ.admin.console.model.ChampAdminConsoleConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,10 +39,18 @@ public class ChampAdminConsoleApplicationTests {
 		a5.setUserName("jakarta");
 		a5.setPassword("hand777");
 		
+		Cargospot sqie = new Cargospot();
+		sqie.setName("SQIE");
+		sqie.setHostName("sqie.champ.aero");
+		sqie.setUserName("jakarta");
+		sqie.setPassword("hand777");
+		
+		
 		List<Application> applications = new ArrayList<>(1);
 		applications.add(a5);
+		applications.add(sqie);
 		
-		ChampAdminConsole adminConsole = new ChampAdminConsole();
+		ChampAdminConsoleConfig adminConsole = new ChampAdminConsoleConfig();
 		adminConsole.setApplications(applications);
 		
 		

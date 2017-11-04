@@ -3,11 +3,8 @@
 <head>
 </head>
 <body>
-<div th:fragment="footer">
 
-    <div class="container">
-
-        <footer>
+       <footer th:fragment="common_footer">
         <!-- this is footer -->
         &copy; 2017 champ.aero
             <span sec:authorize="isAuthenticated()">
@@ -15,13 +12,7 @@
                 Roles: <span sec:authentication="principal.authorities"></span> |
                 <a th:href="@{/logout}">Sign Out</a>
             </span>
+	</footer>
 
-        <script type="text/javascript"
-                src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        </footer>
-    </div>
-
-</div>
 </body>
 </html>

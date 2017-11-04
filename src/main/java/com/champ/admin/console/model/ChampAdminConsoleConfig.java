@@ -2,7 +2,7 @@ package com.champ.admin.console.model;
 
 import java.util.List;
 
-public class ChampAdminConsole {
+public class ChampAdminConsoleConfig {
 	
 	private List<Application> applications;
 
