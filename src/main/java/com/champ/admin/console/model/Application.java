@@ -1,5 +1,35 @@
 package com.champ.admin.console.model;
 
-public interface Application {
-
+public abstract class Application {
+	
+	protected String name;
+	protected String hostName;
+	protected String userName;
+	protected String password;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getHostName() {
+		return hostName;
+	}
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+		
 }

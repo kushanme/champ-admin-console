@@ -3,15 +3,16 @@ package com.champ.admin.console.config;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.castor.CastorMarshaller;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import com.champ.admin.console.commons.util.ApplicationUtil;
 import com.champ.admin.console.io.XmlConverter;
 import com.champ.admin.console.model.ChampAdminConsoleConfig;
+import com.champ.admin.console.repository.ApplicationRepository;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -21,6 +22,15 @@ public class ApplicationConfiguration {
 
 	@Autowired
 	XmlConverter xmlConverter;
+	
+	@Value("${script.cargospot.stop}")
+	private String cargospotStopScript; 
+	
+	@Value("${script.cargospot.start}")
+	private String cargospotStartScript;
+	
+	@Value("${script.cargospot.install}")
+	private String cargospotInstallScript;
 
 	@Bean
 	public CastorMarshaller castorMarshaller() {
@@ -46,8 +56,14 @@ public class ApplicationConfiguration {
 	
 	public ChampAdminConsoleConfig champAdminConsoleConfig() throws Exception {
 
-		ChampAdminConsoleConfig champAdminConsoleConfig = (ChampAdminConsoleConfig) xmlConverter
-				.convertFromXMLToObject(ApplicationUtil.getAppConfigFileName());
+		ChampAdminConsoleConfig champAdminConsoleConfig = null;
+		
+//		 champAdminConsoleConfig = (ChampAdminConsoleConfig) xmlConverter
+//					.convertFromXMLToObject(ApplicationUtil.getAppConfigFileName());
+//			return champAdminConsoleConfig;
+		
+		champAdminConsoleConfig = ApplicationRepository.getInstance().getChampAdminConsoleConfig();
+		
 		return champAdminConsoleConfig;
 	}
 

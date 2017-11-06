@@ -3,37 +3,29 @@ package com.champ.admin.console.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.champ.admin.console.model.Application;
 import com.champ.admin.console.model.Cargospot;
+import com.champ.admin.console.repository.ApplicationRepository;
 
 @Service
 public class ApplicationService implements ChampService {
 	
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationService.class);
 	
 	public List<Application> getApplications(){
 		
-		List<Application> applications = new ArrayList<Application>(3);
+		return ApplicationRepository.getInstance().getApplicationList();
 		
-		Cargospot a5 = new Cargospot();
-		a5.setName("SGIE");
-		a5.setHostName("sgie.champ.aero");
-		a5.setUserName("jakarta");
-		a5.setPassword("hand777");
-		
-		Cargospot sqie = new Cargospot();
-		sqie.setName("SQIE");
-		sqie.setHostName("sqie.champ.aero");
-		sqie.setUserName("jakarta");
-		sqie.setPassword("hand777");
-		
-		applications.add(a5);
-		applications.add(sqie);
-		
-		return applications;
-		
+	}
+	
+	public Application getApplicationByName(String name){
+		Application app = null;
+		app = ApplicationRepository.getInstance().getApplicationByName(name);
+		return app;
 	}
 	
 

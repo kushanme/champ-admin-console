@@ -59,6 +59,13 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- SSH connector -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.53</version>
+		</dependency>
+
 		<!-- Castor need this -->
 		<dependency>
 			<groupId>xerces</groupId>

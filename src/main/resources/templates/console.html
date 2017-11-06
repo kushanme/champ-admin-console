@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: common_header(~{::title},~{})">
+  <title>CHAMP Admin Console - Home</title>
+  
+  <script type="text/javascript">
+  $(document).ready(function(){
+	    $("#SSHCall").click(function(){
+	       
+
+			 var xhr = new XMLHttpRequest()
+			 xhr.open("GET", "http://localhost:9797/console/restart", true)
+			 xhr.onprogress = function () {
+				 
+				 $("#console").text(xhr.responseText);
+   					console.log("PROGRESS:", xhr.responseText)
+ 			}
+ 			xhr.send()
+	    	
+	    });
+	});
+  
+  </script>
+</head>
+
+<body>
+<nav th:replace="fragments/header :: common_nav"/>
+
+<div class="container">
+      
+       <div class="form-group">
+       	<button type="button" id="SSHCall" class="btn">Basic</button>
+  		<label for="comment">Console:</label>
+  		<textarea class="form-control" rows="5" id="console"></textarea>
+		</div> 
+
+
+    </div>
+<!-- /.container -->
+
+	<footer th:replace="fragments/footer :: common_footer" ></footer>
+
+</body>
+</html>
