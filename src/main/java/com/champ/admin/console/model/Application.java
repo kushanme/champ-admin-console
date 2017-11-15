@@ -2,10 +2,12 @@ package com.champ.admin.console.model;
 
 public abstract class Application {
 	
+	
 	protected String name;
 	protected String hostName;
 	protected String userName;
 	protected String password;
+	protected int port = 22;
 	
 	public String getName() {
 		return name;
@@ -30,6 +32,12 @@ public abstract class Application {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public int getPort() {
+		return port;
+	}
+	public void setPort(int port) {
+		this.port = port;
 	}
 		
 }
