@@ -30,7 +30,7 @@ public class SshManager {
 
 	}
 
-	public Session getSession(Cargospot cargospot, OutputStream out) {
+	public Session getSession(Cargospot cargospot, OutputStream out) throws Exception {
 		Session session = null;
 		if (getSshSessionMap().containsKey(cargospot.getName())) {
 			synchronized (LOCK) {
@@ -44,27 +44,29 @@ public class SshManager {
 		return session;
 	}
 
-	public Session createSession(Cargospot cargospot, OutputStream out) {
+	public Session createSession(Cargospot cargospot, OutputStream out) throws Exception {
 		Session session = null;
 		try {
-			JSch jSch = new JSch();
+			synchronized (LOCK) {
+				JSch jSch = new JSch();
 
-			SshLogger.writeLog("Connecting to the server..." + cargospot.getHostName(), LOGGER, out, cargospot);
-			session = jSch.getSession(cargospot.getUserName(), cargospot.getHostName(), cargospot.getPort());
+				SshLogger.writeLog("Connecting to the server..." + cargospot.getHostName(), LOGGER, out, cargospot);
+				session = jSch.getSession(cargospot.getUserName(), cargospot.getHostName(), cargospot.getPort());
 
-			SshLogger.writeLog("Connected", LOGGER, out, cargospot);
+				SshLogger.writeLog("Connected", LOGGER, out, cargospot);
 
-			session.setConfig(getConfigProperties());
-			session.setPassword(cargospot.getPassword());
-			
-			SshLogger.writeLog("Creating the session", LOGGER, out, cargospot);
-			session.connect();
-			SshLogger.writeLog("Session created", LOGGER, out, cargospot);
-			
-			
-			
+				session.setConfig(getConfigProperties());
+				session.setPassword(cargospot.getPassword());
+
+				SshLogger.writeLog("Creating the session", LOGGER, out, cargospot);
+				session.connect();
+				SshLogger.writeLog("Session created", LOGGER, out, cargospot);
+
+				getSshSessionMap().put(cargospot.getName(), session);
+			}
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw e;
 		}
 
 		return session;
@@ -79,9 +81,9 @@ public class SshManager {
 	}
 
 	public static Map<String, Session> getSshSessionMap() {
-		if(sshSessionMap == null){
+		if (sshSessionMap == null) {
 			synchronized (LOCK) {
-				if (sshSessionMap == null){
+				if (sshSessionMap == null) {
 					sshSessionMap = new ConcurrentHashMap<>();
 				}
 			}
