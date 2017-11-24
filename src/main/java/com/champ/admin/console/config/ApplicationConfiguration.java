@@ -23,14 +23,6 @@ public class ApplicationConfiguration {
 	@Autowired
 	XmlConverter xmlConverter;
 	
-	@Value("${script.cargospot.stop}")
-	private String cargospotStopScript; 
-	
-	@Value("${script.cargospot.start}")
-	private String cargospotStartScript;
-	
-	@Value("${script.cargospot.install}")
-	private String cargospotInstallScript;
 
 	@Bean
 	public CastorMarshaller castorMarshaller() {

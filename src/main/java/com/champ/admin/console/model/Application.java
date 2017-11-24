@@ -8,6 +8,7 @@ public abstract class Application {
 	protected String userName;
 	protected String password;
 	protected int port = 22;
+	protected ApplicationType applicationType;
 	
 	public String getName() {
 		return name;
@@ -38,6 +39,13 @@ public abstract class Application {
 	}
 	public void setPort(int port) {
 		this.port = port;
+	}
+	
+	public ApplicationType getApplicationType() {
+		return applicationType;
+	}
+	protected void setApplicationType(ApplicationType applicationType) {
+		this.applicationType = applicationType;
 	}
 		
 }

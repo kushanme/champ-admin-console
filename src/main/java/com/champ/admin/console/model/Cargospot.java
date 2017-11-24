@@ -5,6 +5,9 @@ public class Cargospot extends Application {
 	private String commandPath;
 	private String cspPath;
 	
+	public Cargospot() {
+		setApplicationType(ApplicationType.CARGOSPOT);
+	}
 	
 	public String getCommandPath() {
 		return commandPath;

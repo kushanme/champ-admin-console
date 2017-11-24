@@ -5,12 +5,13 @@
 
 <!-- Common styles and scripts -->
 <link rel="stylesheet" type="text/css"
-	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+	href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="stylesheet" th:href="@{/css/main.css}"
 	href="../../css/main.css" />
-<script src="webjars/jquery/3.2.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/app.js"></script>
 
 <!--/* Per-page placeholder for additional links */-->
 <th:block th:replace="${links}" />
@@ -36,7 +37,7 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Applications <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">SGIE</a></li>
+							<li><a href="/application/view/SGIE">SGIE</a></li>
 							<li><a href="#">SQIE</a></li>
 							<li><a href="#">ECS</a></li>
 							<li role="separator" class="divider"></li>

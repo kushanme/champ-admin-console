@@ -69,10 +69,10 @@ public class ApplicationRepository {
 					
 					Cargospot a5 = new Cargospot();
 					a5.setName("SGIE");
-					a5.setHostName("sgie.champ.aero");
+					a5.setHostName("csiesg.champ.aero");
 					a5.setUserName("jakarta");
 					a5.setPassword("hand777");
-					a5.setCommandPath("/tmp/admin-console");
+					a5.setCommandPath("");
 					a5.setCspPath("/cargospot/sgie");
 					
 					Cargospot sqie = new Cargospot();

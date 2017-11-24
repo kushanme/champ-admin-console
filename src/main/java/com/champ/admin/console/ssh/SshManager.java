@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.champ.admin.console.model.Application;
 import com.champ.admin.console.model.Cargospot;
 import com.champ.admin.console.ssh.util.SshLogger;
 import com.jcraft.jsch.JSch;
@@ -20,7 +21,7 @@ public class SshManager {
 	private static Map<String, Session> sshSessionMap = null;
 	private static final Object LOCK = new Object();
 	private Properties configProperties = null;
-	private static final Logger LOGGER = LoggerFactory.getLogger(SshLogger.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SshManager.class);
 
 	public SshManager() {
 		getSshSessionMap();
@@ -30,39 +31,44 @@ public class SshManager {
 
 	}
 
-	public Session getSession(Cargospot cargospot, OutputStream out) throws Exception {
+	public Session getSession(Application application, OutputStream out) throws Exception {
 		Session session = null;
-		if (getSshSessionMap().containsKey(cargospot.getName())) {
+		if (getSshSessionMap().containsKey(application.getName())) {
 			synchronized (LOCK) {
-				session = getSshSessionMap().get(cargospot.getName());
+				session = getSshSessionMap().get(application.getName());
 				if (session != null && session.isConnected()) {
 					return session;
 				}
+				else{
+					session = createSession(application, out);
+				}
 			}
 
+		}else{
+			session = createSession(application, out);
 		}
 		return session;
 	}
 
-	public Session createSession(Cargospot cargospot, OutputStream out) throws Exception {
+	private Session createSession(Application application, OutputStream out) throws Exception {
 		Session session = null;
 		try {
 			synchronized (LOCK) {
 				JSch jSch = new JSch();
 
-				SshLogger.writeLog("Connecting to the server..." + cargospot.getHostName(), LOGGER, out, cargospot);
-				session = jSch.getSession(cargospot.getUserName(), cargospot.getHostName(), cargospot.getPort());
+				SshLogger.writeLog("Connecting to the server..." + application.getHostName(), LOGGER, out, application);
+				session = jSch.getSession(application.getUserName(), application.getHostName(), application.getPort());
 
-				SshLogger.writeLog("Connected", LOGGER, out, cargospot);
+				SshLogger.writeLog("Connected", LOGGER, out, application);
 
 				session.setConfig(getConfigProperties());
-				session.setPassword(cargospot.getPassword());
+				session.setPassword(application.getPassword());
 
-				SshLogger.writeLog("Creating the session", LOGGER, out, cargospot);
+				SshLogger.writeLog("Creating the session", LOGGER, out, application);
 				session.connect();
-				SshLogger.writeLog("Session created", LOGGER, out, cargospot);
+				SshLogger.writeLog("Session created", LOGGER, out, application);
 
-				getSshSessionMap().put(cargospot.getName(), session);
+				getSshSessionMap().put(application.getName(), session);
 			}
 
 		} catch (Exception e) {
